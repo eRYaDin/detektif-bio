@@ -24,6 +24,12 @@ Lalu buka http://127.0.0.1:8766 di browser.
 
 ## Kontrol
 
+- **Mode bermain**: fokuskan layar pada peta dan kontrol. Tombol **Kembali** mengembalikan tampilan halaman.
+- **Layar penuh**: buka seluruh game termasuk soal, jurnal, dan kontrol. Pada Android yang mendukungnya, game mencoba orientasi landscape. Jika tidak didukung, putar perangkat secara manual; mode bermain tetap tersedia.
+- **Teks A+ / A−**: ubah teks utama dari 18 menjadi 21 piksel. Pilihan disimpan di perangkat. Zoom browser tetap diizinkan.
+- Portrait Android: dialog tampil di bawah peta, bukan menutupi peta. Landscape mode bermain: dialog di samping peta dan tombol arah satu baris. Tablet/PC memakai ruang layar yang tersedia.
+- Menu **Belajar** dan **Jurnal** juga tersedia pada toolbar di atas peta, termasuk dalam layar penuh.
+
 - WASD / panah: berjalan.
 - Klik peta: cari jalan ke tujuan secara otomatis.
 - Klik tokoh atau alat: dekati lalu interaksi otomatis.

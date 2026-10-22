@@ -1,0 +1,86 @@
+/* Typography uses CSS pixels instead of shrinking with the map. Last stylesheet wins. */
+:root{--read-size:18px;--small-read:14px;--button-read:16px}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-size:16px;line-height:1.5;overflow-wrap:break-word}
+body.large-text{--read-size:21px;--small-read:16px;--button-read:19px}
+button{touch-action:manipulation;white-space:normal;line-height:1.4}
+.app{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+.game-frame{position:relative}
+.play-toolbar{display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:#1b352e;align-items:center}
+.play-toolbar button{min-height:44px;background:#304e3c;color:#f1ecd1;border:1px solid #6d8457;border-radius:4px;padding:8px 12px;font-size:14px}
+.play-toolbar button[aria-pressed=true]{background:#e7c47b;color:#253c29}
+.play-toolbar #fullscreen{margin-left:auto}
+.rotate-hint{display:none}
+.viewport{min-height:280px}
+#world{object-fit:contain;background:#264f43}
+.dialog{position:relative;inset:auto;width:auto;margin:0;border:0;border-top:2px solid #94a47a;outline:0;box-shadow:none;min-height:0;padding:20px;gap:16px;overflow-wrap:anywhere}
+.dialog p{font-size:var(--read-size);line-height:1.65;min-height:0;margin:10px 0 16px}
+.speaker-line{flex-wrap:wrap;gap:6px 14px}
+.speaker-line b{font-size:18px}.speaker-line span{font-size:12px;letter-spacing:.4px}
+.choices{gap:10px}.choices button{font-size:var(--button-read);min-height:48px;padding:12px 16px}
+.dialog>#portrait{width:96px;height:96px}
+.interaction{font-size:16px;white-space:normal;width:max-content;max-width:calc(100% - 24px);text-align:center;padding:10px 14px;bottom:14px}
+.area-label b{font-size:14px}.area-label span{font-size:10px}
+.map-header{font-size:11px;letter-spacing:.6px;gap:10px}.map-header #map-status{font-size:11px;letter-spacing:0;text-align:right}
+.eyebrow{font-size:12px;letter-spacing:1px}
+.mission p,.tip p,.objectives li,.journal-button div{font-size:var(--small-read)}
+.objectives small,.journal-button small,.detective div>span,.progress-label{font-size:13px}
+.detective small,.mission .eyebrow,.notes-head .eyebrow{font-size:11px}
+.journal-button{min-height:64px}.detective h2{font-size:20px}.mission h3{font-size:19px}
+.intro{overflow:auto}.intro-inner{padding:24px;max-width:520px}
+.intro .eyebrow{font-size:11px;letter-spacing:.7px}.intro p{font-size:var(--read-size);line-height:1.6;max-width:380px}
+.intro .primary,.primary,.secondary{font-size:var(--button-read);min-height:48px;padding:12px 18px}
+.intro small{font-size:12px}.intro h2{font-size:clamp(26px,3vw,42px)}
+.toast{font-size:16px;white-space:normal;max-width:calc(100% - 24px);width:max-content}
+.modal-backdrop{padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));overflow:hidden}
+.modal{width:min(760px,100%);max-height:calc(100dvh - 24px);padding:30px 24px;overscroll-behavior:contain;scrollbar-gutter:stable;overflow-x:hidden}
+.modal h2{font-size:clamp(24px,3vw,32px);padding-right:34px;line-height:1.3}
+.modal .close{position:sticky;float:right;width:48px;height:48px;top:0;right:auto;margin:-18px -12px 0 8px;background:#e1e5ce;z-index:2;border-radius:4px}
+.modal p,.modal h3,.specimen p,.reading p,.lesson-feedback,.lesson-feedback p,.feedback{font-size:var(--read-size)!important;line-height:1.7}
+.modal .subtle,.parent-notes p,.parent-notes summary{font-size:var(--small-read)}
+.modal .eyebrow{display:block;padding-right:40px;font-size:12px}
+.puzzle-options button{font-size:var(--read-size);min-height:52px;padding:14px 16px}
+.modal .lesson-question{font-size:calc(var(--read-size) + 3px)!important}.lesson-card strong{font-size:19px}
+.lesson-card>span:not(.lesson-icon),.lesson-card small,.learning-summary,.text-button{font-size:var(--small-read)}
+.grade-picker button{font-size:var(--read-size);min-height:48px}.chain{font-size:var(--read-size);line-height:1.7}
+.reading small{font-size:12px}.reading b{font-size:32px}.lesson-feedback{min-height:90px}
+.game-footer small,.game-footer>span{font-size:12px}.game-footer{flex-wrap:wrap}
+.touch-controls{padding:12px;margin:0;gap:16px;background:#19372e}
+.dpad{grid-template-columns:repeat(3,52px);gap:6px}.dpad button{height:48px;min-width:48px;font-size:20px;touch-action:none;user-select:none;-webkit-user-select:none}
+.touch-controls>#touch-action{font-size:17px;min-height:56px;min-width:120px;touch-action:none;user-select:none}
+.below-game,.page-footer{font-size:12px}.page-footer>span:first-child{font-size:10px}
+.modal-open{overflow:hidden}
+/* Focus mode is CSS-only layout; it never changes the game coordinates or save. */
+body.game-focus{overflow:hidden}
+.game-focus .masthead,.game-focus .chapter-line,.game-focus .field-notes,.game-focus .below-game,.game-focus .page-footer{display:none}
+.game-focus .app{max-width:none;padding:0}.game-focus main{padding:0}.game-focus .game-layout{display:block}
+.game-focus .game-frame{height:100vh;height:100dvh;width:100%;border:0;border-radius:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto auto;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);background:#173b31;overflow:hidden}
+.game-focus .play-toolbar{grid-row:1;grid-column:1/-1}.game-focus .map-header{grid-row:2;grid-column:1;padding:6px 12px}
+.game-focus .rotate-hint,.game-focus .game-footer{display:none}
+.game-focus .viewport{grid-row:3;grid-column:1;min-height:0;height:100%;width:100%;aspect-ratio:auto}
+.game-focus .dialog{grid-row:4;grid-column:1;min-height:0;max-height:44dvh;overflow:auto;padding:16px}
+.game-focus .touch-controls{grid-row:5;grid-column:1/-1}
+.game-focus .dialog>#portrait{width:70px;height:70px}
+@media(any-pointer:coarse){.touch-controls{display:flex}.game-footer{display:none}}
+@media(max-width:1050px){.game-layout{grid-template-columns:1fr}.field-notes{display:grid;grid-template-columns:1fr 1fr;gap:16px 22px}.notes-head,.objectives,.tip{grid-column:1/-1}.detective{grid-column:1}.mission{grid-column:2;grid-row:2/4;padding-top:10px}.objectives{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;margin:0}.journal-button,#learning{grid-column:auto}.tip{display:flex}.location{display:none}}
+@media(max-width:600px){
+ .app{padding:0 max(10px,env(safe-area-inset-left)) 0 max(10px,env(safe-area-inset-right))}.masthead{height:auto;min-height:76px;gap:10px;padding:12px 0}.brand{font-size:17px}.brand small{font-size:9px}.icon-button{min-height:44px;min-width:44px}.icon-button span{display:none}main{padding-top:20px}.chapter-line{margin-bottom:18px}.chapter-line h1{font-size:27px;line-height:1.25}
+ .play-toolbar{gap:6px;padding:8px}.play-toolbar button{padding:8px 10px;font-size:14px;flex:1 0 auto}.play-toolbar #fullscreen{margin-left:0}.rotate-hint{display:block;margin:0;padding:10px 14px;color:#d4dfc3;background:#234638;font-size:14px;line-height:1.6}
+ .viewport{min-height:320px}.map-header{padding:10px;flex-wrap:wrap}.map-header #map-status{font-size:11px}.area-label{padding:7px 10px;top:12px;left:12px}.area-label b{font-size:13px}.area-label span{font-size:10px}.compass{font-size:12px}
+ .intro-inner{padding:20px}.intro h2{font-size:28px;margin:10px 0}.intro p{font-size:var(--read-size);max-width:100%;margin:10px 0}.intro small{display:none}.intro .eyebrow{font-size:10px}
+ .dialog{padding:16px;gap:12px}.dialog>#portrait{width:64px;height:64px}.speaker-line b{font-size:17px}.speaker-line span{display:none}.choices{display:grid;grid-template-columns:1fr}.choices .next{margin-left:0}.choices button{width:100%}
+ .field-notes{grid-template-columns:1fr;padding:20px;gap:14px}.detective,.mission,.notes-head,.objectives,.journal-button,#learning,.tip{grid-column:1;grid-row:auto}.mission{padding-top:0}.objectives{grid-template-columns:1fr}.detective h2{font-size:23px}.detective .sidebar-portrait{width:78px;height:78px}.objectives li{padding:14px 0;font-size:16px}.objectives small{font-size:14px}.journal-button div{font-size:17px}.journal-button small{font-size:14px}
+ .modal{padding:25px 18px;max-height:calc(100dvh - 24px)}.modal h2{font-size:26px}.lesson-grid{grid-template-columns:1fr}.learning-summary{flex-wrap:wrap}.reward-portrait{width:96px;height:96px}.experiment{gap:8px}.reading{padding:12px}.specimen{align-items:flex-start;gap:12px}.page-footer{display:block}.page-footer>span{display:block;margin:7px 0;max-width:none!important;text-align:left!important}
+}
+/* Low-height landscape: dialogue beside the map; controls use one horizontal row. */
+@media(orientation:landscape) and (max-height:650px){
+ .masthead{min-height:60px;height:auto;padding:8px 0}.chapter-line{margin-bottom:14px}.chapter-line h1{font-size:26px}main{padding-top:16px}.rotate-hint{display:none}
+ .dpad{grid-template-columns:repeat(4,48px)}.dpad button:first-child,.dpad button:nth-child(2){grid-column:auto}.touch-controls{padding:8px 14px}.touch-controls>#touch-action{min-height:48px}
+ .game-focus .play-toolbar{padding:6px 10px;flex-wrap:nowrap}.game-focus .play-toolbar button{min-height:44px;padding:6px 12px;font-size:14px}
+ .game-focus .game-frame{grid-template-rows:auto auto minmax(0,1fr) auto}.game-focus .touch-controls{grid-row:4}
+ .game-focus .game-frame.has-dialog{grid-template-columns:minmax(0,1fr) minmax(270px,36%)}
+ .game-focus .has-dialog .dialog{grid-column:2;grid-row:2/4;max-height:none;border-top:0;border-left:2px solid #94a47a;display:block;overflow:auto}
+ .game-focus .dialog>#portrait{width:58px;height:58px;float:left;margin:0 12px 8px 0}.game-focus .dialog .speaker-line{min-height:58px}.game-focus .dialog .speaker-line span{display:none}.game-focus .dialog p{clear:both;margin-top:6px}.game-focus .choices{display:grid;grid-template-columns:1fr}.game-focus .choices .next{margin-left:0}
+ .modal{max-height:calc(100dvh - 16px);padding-top:20px;padding-bottom:20px}.modal-backdrop{padding:8px max(12px,env(safe-area-inset-right)) 8px max(12px,env(safe-area-inset-left))}
+ .intro-inner{max-width:100%;padding:16px 22px}.intro h2{font-size:26px}.intro h2 br{display:none}.intro p{max-width:620px;margin:8px 0}.intro small,.intro .eyebrow{display:none}
+}

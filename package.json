@@ -1,10 +1,10 @@
 {
   "name": "detektif-bio-odyssey",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Petualangan dan 40 soal belajar untuk kelas 1–2 SD. Vanilla JavaScript, tanpa dependensi runtime.",
   "scripts": {
-    "test": "node tools/check-project.cjs && node tools/check-junior.cjs && node tools/check-learning.cjs",
+    "test": "node tools/check-project.cjs && node tools/check-junior.cjs && node tools/check-learning.cjs && node tools/check-display.cjs",
     "release": "node tools/package-release.cjs"
   },
   "engines": { "node": ">=20" }

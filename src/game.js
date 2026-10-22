@@ -26,24 +26,23 @@
   }
   function portraitHTML(who,exp,extra=''){return `<span role="img" aria-label="${C.names[who][0]} ${exp}" class="atlas-portrait ${extra}" style="${portraitStyle(who,exp)}"></span>`;}
   function stopTyping(){if(typing){clearInterval(typing);typing=null;$('dialog-text').textContent=fullText;}}
-  function closeDialog(){stopTyping();$('dialog').classList.add('hidden');dialogOpen=false;currentNext=null;canvas.focus({preventScroll:true});}
+  function closeDialog(){stopTyping();$('dialog').classList.add('hidden');$('game-frame').classList.remove('has-dialog');dialogOpen=false;currentNext=null;canvas.focus({preventScroll:true});}
   function say(who,exp,text,actions=[['Lanjut →',closeDialog]]){
-    route=[];routeTarget=null;keys.clear();dialogOpen=true;$('dialog').classList.remove('hidden');$('interaction').classList.add('hidden');
+    route=[];routeTarget=null;keys.clear();dialogOpen=true;$('dialog').classList.remove('hidden');$('game-frame').classList.add('has-dialog');$('interaction').classList.add('hidden');
     $('portrait').style.cssText=portraitStyle(who,exp);$('portrait').setAttribute('aria-label',`${C.names[who][0]}, ekspresi ${exp}`);$('speaker').textContent=C.names[who][0];$('speaker-role').textContent=C.names[who][1];
     stopTyping();fullText=text;$('dialog-text').textContent='';let i=0;
     if(matchMedia('(prefers-reduced-motion: reduce)').matches)$('dialog-text').textContent=text;
-    else typing=setInterval(()=>{i+=2;$('dialog-text').textContent=text.slice(0,i);if(i>=text.length){clearInterval(typing);typing=null;}},15);
+    else typing=setInterval(()=>{i+=2;$('dialog-text').textContent=text.slice(0,i);if(i>=text.length){clearInterval(typing);typing=null;if(!document.body.classList.contains('game-focus'))$('dialog').scrollIntoView({block:'nearest'});}},15);
     $('choices').replaceChildren();currentNext=actions.length===1?actions[0][1]:null;
     actions.forEach(([label,callback])=>{const b=document.createElement('button');b.textContent=label;if(actions.length===1)b.className='next';b.onclick=()=>{if(typing){stopTyping();return;}A.click();callback();};$('choices').append(b);});
     canvas.focus({preventScroll:true});
   }
   function conversation(lines,done=closeDialog){let i=0;const next=()=>{if(i>=lines.length){done();return;}const l=lines[i++];say(l.who,l.exp,l.text,[[i===lines.length?'Cukup jelas! →':'Lanjut →',next]]);};next();}
   function openModal(eyebrow,title,html){
-    if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});
     stopTyping();closeDialog();route=[];routeTarget=null;keys.clear();lastFocus=document.activeElement;
-    $('modal-eyebrow').textContent=eyebrow;$('modal-title').textContent=title;$('modal-content').innerHTML=html;$('modal').classList.remove('hidden');$('modal-close').focus();
+    $('modal-eyebrow').textContent=eyebrow;$('modal-title').textContent=title;$('modal-content').innerHTML=html;$('modal').classList.remove('hidden');document.body.classList.add('modal-open');document.querySelector('.modal').scrollTop=0;$('modal-close').focus();
   }
-  function closeModal(){cancelAnimationFrame(scopeFrame);$('modal').classList.add('hidden');keys.clear();(lastFocus?.isConnected?lastFocus:canvas).focus({preventScroll:true});}
+  function closeModal(){cancelAnimationFrame(scopeFrame);$('modal').classList.add('hidden');document.body.classList.remove('modal-open');keys.clear();(lastFocus?.isConnected?lastFocus:canvas).focus({preventScroll:true});}
   function feedback(message){A.think();const el=$('feedback');el.innerHTML=portraitHTML('bio','thinking','feedback-portrait')+message;el.setAttribute('role','status');}
   function collect(id){
     closeModal();if(!state.evidence.includes(id)){state.evidence.push(id);save();updateUI();A.success();toast('Bukti baru ditambahkan ke jurnal');}
@@ -118,7 +117,7 @@
   }
   canvas.addEventListener('pointerdown',e=>{
     if(!ready||dialogOpen||!$('modal').classList.contains('hidden')||!$('intro').classList.contains('hidden'))return;
-    canvas.focus({preventScroll:true});const r=canvas.getBoundingClientRect(),x=(e.clientX-r.left)*480/r.width,y=(e.clientY-r.top)*288/r.height;
+    canvas.focus({preventScroll:true});const point=BioDisplay.mapPoint(e.clientX,e.clientY,canvas.getBoundingClientRect());if(!point)return;const {x,y}=point;
     const entity=entities.find(o=>Math.hypot(o.x-x,o.y-y)<20);
     if(entity&&Math.hypot(entity.x-player.x,entity.y-player.y)<25){interact(entity);return;}
     route=findRoute(entity?.x??x,entity?.y??y);routeTarget=entity||null;if(!route.length&&entity)toast('Dekati lewat jalan setapak');
@@ -137,14 +136,14 @@
     }
   });
   document.addEventListener('keyup',e=>{if(moveCodes[e.code])keys.delete(moveCodes[e.code]);});window.addEventListener('blur',()=>keys.clear());document.addEventListener('visibilitychange',()=>{if(document.hidden)keys.clear();});
-  document.querySelectorAll('[data-move]').forEach(b=>{b.onpointerdown=e=>{e.preventDefault();keys.add(b.dataset.move);route=[];routeTarget=null;b.setPointerCapture(e.pointerId);};b.onpointerup=b.onpointercancel=()=>keys.delete(b.dataset.move);});
+  document.querySelectorAll('[data-move]').forEach(b=>{b.onpointerdown=e=>{e.preventDefault();keys.add(b.dataset.move);route=[];routeTarget=null;b.setPointerCapture(e.pointerId);};b.onpointerup=b.onpointercancel=b.onlostpointercapture=()=>keys.delete(b.dataset.move);});
   $('touch-action').onclick=()=>{if(dialogOpen){if(typing)stopTyping();else currentNext?.();}else interact();};
   $('start').onclick=()=>{if(!ready){toast('Menyiapkan peta…');return;}$('intro').classList.add('hidden');canvas.focus({preventScroll:true});if(!state.started)conversation([{who:'bio',exp:'neutral',text:'Aku Bio. Pagi ini aku datang ke Arunika untuk sebuah misteri. Mesha menungguku di jalan menuju jembatan. Saatnya mencari tahu!'}]);};
   $('sound').onclick=async()=>{try{const on=await A.toggle();$('sound').querySelector('span').textContent=on?'Suara aktif':'Suara mati';$('sound').setAttribute('aria-label',on?'Matikan suara':'Aktifkan suara');}catch{toast('Audio belum tersedia di browser ini');}};
   BioLessons.init({openModal,closeModal,portraitHTML,audio:A});
   $('learning').onclick=()=>BioLessons.open();
   $('help').onclick=help;$('journal').onclick=openJournal;$('modal-close').onclick=closeModal;$('modal').onclick=e=>{if(e.target===$('modal'))closeModal();};
-  $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('viewport').requestFullscreen();}catch{toast('Gunakan F11 untuk layar penuh di browser ini');}};
+  BioDisplay.init({keys,openJournal,openLearning:()=>BioLessons.open(),toast});
   function tick(t){
     const dt=Math.min((t-last)/1000,.04);last=t;player.walking=false;
     if(ready){
