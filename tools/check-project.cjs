@@ -12,6 +12,8 @@ for(const file of fs.readdirSync(path.join(root,'src')).filter(f=>f.endsWith('.j
 for(const name of ['bio','companions']){const png=fs.readFileSync(path.join(root,`assets/illustrated/${name}-atlas.png`));assert.equal(png.subarray(1,4).toString(),'PNG');assert(png.readUInt32BE(16)>1000);}
 assert(fs.existsSync(path.join(root,'.nojekyll')));
 assert(html.includes('id="learning"'));
+assert.equal([...html.matchAll(/id="sound"/g)].length,1,'Satu tombol suara saja');
+assert(html.slice(html.indexOf('<nav class="play-toolbar"'),html.indexOf('</nav>')).includes('id="sound"'),'Suara harus tersedia dalam toolbar game');
 assert(html.indexOf('src/learning-data.js')<html.indexOf('src/learning.js'));
 assert(html.indexOf('src/learning.js')<html.indexOf('src/game.js'));
 console.log('PASS: syntax JS, aset runtime, urutan script, path relatif, dan .nojekyll');

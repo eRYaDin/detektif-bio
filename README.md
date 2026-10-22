@@ -24,7 +24,8 @@ Lalu buka http://127.0.0.1:8766 di browser.
 
 ## Kontrol
 
-- **Mode bermain**: fokuskan layar pada peta dan kontrol. Tombol **Kembali** mengembalikan tampilan halaman.
+- **Main layar penuh**: dari ketukan pemain, minta fullscreen dengan bilah browser disembunyikan dan fokuskan layar pada peta serta kontrol. Jika browser menolak, mode fokus halaman tetap berjalan dan menampilkan pemberitahuan. Memutar HP saja tidak mengaktifkan fullscreen. Tombol **Kembali** keluar dari fullscreen dan mengembalikan tampilan halaman.
+- **Suara mati / Suara aktif**: ada di toolbar game, termasuk saat landscape dan fullscreen. Ketuk untuk mengaktifkan atau mematikan musik. Jika aktivasi audio ditolak browser, tombol dapat dicoba lagi.
 - **Layar penuh**: buka seluruh game termasuk soal, jurnal, dan kontrol. Pada Android yang mendukungnya, game mencoba orientasi landscape. Jika tidak didukung, putar perangkat secara manual; mode bermain tetap tersedia.
 - **Teks A+ / A−**: ubah teks utama dari 18 menjadi 21 piksel. Pilihan disimpan di perangkat. Zoom browser tetap diizinkan.
 - Portrait Android: dialog tampil di bawah peta, bukan menutupi peta. Landscape mode bermain: dialog di samping peta dan tombol arah satu baris. Tablet/PC memakai ruang layar yang tersedia.

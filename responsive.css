@@ -9,6 +9,8 @@ button{touch-action:manipulation;white-space:normal;line-height:1.4}
 .play-toolbar{display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:#1b352e;align-items:center}
 .play-toolbar button{min-height:44px;background:#304e3c;color:#f1ecd1;border:1px solid #6d8457;border-radius:4px;padding:8px 12px;font-size:14px}
 .play-toolbar button[aria-pressed=true]{background:#e7c47b;color:#253c29}
+.play-toolbar #sound{position:relative;z-index:1;pointer-events:auto;min-width:100px}
+.play-toolbar #sound:disabled{opacity:.7}
 .play-toolbar #fullscreen{margin-left:auto}
 .rotate-hint{display:none}
 .viewport{min-height:280px}
@@ -76,7 +78,7 @@ body.game-focus{overflow:hidden}
 @media(orientation:landscape) and (max-height:650px){
  .masthead{min-height:60px;height:auto;padding:8px 0}.chapter-line{margin-bottom:14px}.chapter-line h1{font-size:26px}main{padding-top:16px}.rotate-hint{display:none}
  .dpad{grid-template-columns:repeat(4,48px)}.dpad button:first-child,.dpad button:nth-child(2){grid-column:auto}.touch-controls{padding:8px 14px}.touch-controls>#touch-action{min-height:48px}
- .game-focus .play-toolbar{padding:6px 10px;flex-wrap:nowrap}.game-focus .play-toolbar button{min-height:44px;padding:6px 12px;font-size:14px}
+ .game-focus .play-toolbar{padding:6px 10px;flex-wrap:wrap}.game-focus .play-toolbar button{min-height:44px;padding:6px 10px;font-size:14px}
  .game-focus .game-frame{grid-template-rows:auto auto minmax(0,1fr) auto}.game-focus .touch-controls{grid-row:4}
  .game-focus .game-frame.has-dialog{grid-template-columns:minmax(0,1fr) minmax(270px,36%)}
  .game-focus .has-dialog .dialog{grid-column:2;grid-row:2/4;max-height:none;border-top:0;border-left:2px solid #94a47a;display:block;overflow:auto}

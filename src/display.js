@@ -14,20 +14,21 @@
     function applyText(){document.body.classList.toggle('large-text',large);$('text-size').setAttribute('aria-pressed',String(large));$('text-size').textContent=large?'Teks A−':'Teks A+';$('text-size').setAttribute('aria-label',large?'Gunakan ukuran teks biasa':'Perbesar teks');}
     function setFocus(on){
       keys.clear();if(on&&!focus)previousScroll=window.scrollY;
-      focus=on;document.body.classList.toggle('game-focus',on);$('play-mode').setAttribute('aria-pressed',String(on));$('play-mode').textContent=on?'Kembali':'Mode bermain';
+      focus=on;document.body.classList.toggle('game-focus',on);$('play-mode').setAttribute('aria-pressed',String(on));$('play-mode').textContent=on?'Kembali':'Main layar penuh';
       if(!on)window.scrollTo({top:previousScroll,behavior:'instant'});
     }
-    $('play-mode').onclick=async()=>{const next=!focus;if(document.fullscreenElement){try{await document.exitFullscreen();}catch{}ownedFullscreen=false;}setFocus(next);};
+    async function leaveFullscreen(){if(document.fullscreenElement){try{await document.exitFullscreen();}catch{toast('Gunakan tombol kembali perangkat untuk keluar layar penuh.');return;}}ownedFullscreen=false;setFocus(false);}
+    $('play-mode').onclick=()=>focus?leaveFullscreen():enterFullscreen();
     $('text-size').onclick=()=>{large=!large;applyText();try{localStorage.setItem('bio-large-text',String(large));}catch{}};
     $('play-learning').onclick=openLearning;$('play-journal').onclick=openJournal;
-    $('fullscreen').onclick=async()=>{
-      if(document.fullscreenElement){await document.exitFullscreen().catch(()=>{});return;}
+    async function enterFullscreen(){
       // Seluruh dokumen ikut fullscreen agar modal soal dan kontrol tetap terlihat.
       setFocus(true);
-      try{if(!document.documentElement.requestFullscreen)throw Error('unsupported');await document.documentElement.requestFullscreen();ownedFullscreen=true;
+      try{if(!document.documentElement.requestFullscreen)throw Error('unsupported');await document.documentElement.requestFullscreen({navigationUI:'hide'});ownedFullscreen=true;
         if(matchMedia('(any-pointer: coarse)').matches&&root.screen?.orientation?.lock){try{await root.screen.orientation.lock('landscape');}catch{toast('Putar perangkat mendatar jika ingin peta lebih lebar.');}}
-      }catch{toast('Mode bermain aktif. Layar penuh belum didukung browser ini.');}
-    };
+      }catch{toast('Mode bermain aktif. Browser ini belum mengizinkan layar penuh.');}
+    }
+    $('fullscreen').onclick=()=>document.fullscreenElement?leaveFullscreen():enterFullscreen();
     document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&ownedFullscreen){ownedFullscreen=false;try{root.screen?.orientation?.unlock?.();}catch{}setFocus(false);}});
     // Rotasi atau perpindahan aplikasi tidak boleh meninggalkan tombol arah tertahan.
     window.addEventListener('resize',()=>keys.clear());document.addEventListener('visibilitychange',()=>{if(document.hidden)keys.clear();});

@@ -1,5 +1,12 @@
 # Pemeriksaan tampilan v1.1
 
+## Perbaikan v1.1.1
+
+- Tombol suara dipindahkan dari header halaman ke toolbar game yang tetap terlihat dalam mode fokus/fullscreen. Hanya ada satu tombol suara, dengan label dan status aksesibilitas yang disinkronkan.
+- Di preview browser, klik suara mengubah label menjadi Suara aktif, klik berikutnya Suara mati, dan dapat dinyalakan lagi. Tombol tidak tertutup/disabled pada pemeriksaan lebar 320, 640, dan 844 piksel.
+- Tombol Main layar penuh sekarang langsung mencoba Fullscreen API dari ketukan pengguna, dengan opsi `navigationUI: hide`. Memutar perangkat tidak otomatis memicu API ini. Jika ditolak browser, mode fokus tetap tersedia dengan pemberitahuan.
+- Pengujian audio tanpa browser memeriksa resume/suspend, kegagalan autoplay, percobaan ulang, timer musik tunggal, dan pemulihan AudioContext yang tertutup. Pengujian tidak mengklaim volume/suara telah didengar pada perangkat Android fisik.
+
 Pemeriksaan browser dilakukan pada preview lokal dengan penggantian viewport. Ini simulasi ukuran layar, bukan pengujian pada perangkat Android/iPad fisik.
 
 | Ukuran CSS | Pemeriksaan |

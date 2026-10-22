@@ -21,12 +21,13 @@ vm.createContext(context);vm.runInContext(code,context);
 win.BioDisplay.init({keys,openJournal:()=>journal++,openLearning:()=>learning++,toast:()=>toasts++});
 (async()=>{
  elements.get('text-size').onclick();assert.equal(store['bio-large-text'],'true');assert(doc.body.classList.contains('large-text'));
- await elements.get('play-mode').onclick();assert(doc.body.classList.contains('game-focus'));assert.equal(keys.size,0);
+ await elements.get('play-mode').onclick();assert(doc.body.classList.contains('game-focus'));assert.equal(keys.size,0);assert.equal(toasts,1,'Tombol main mencoba fullscreen dan memberi fallback');
  elements.get('play-learning').onclick();elements.get('play-journal').onclick();assert.equal(learning,1);assert.equal(journal,1);
- await elements.get('fullscreen').onclick();assert.equal(toasts,1);assert(doc.body.classList.contains('game-focus'),'Fallback tetap bisa dimainkan');
- doc.documentElement.requestFullscreen=async()=>{doc.fullscreenElement=doc.documentElement;};
+ await elements.get('fullscreen').onclick();assert.equal(toasts,2);assert(doc.body.classList.contains('game-focus'),'Fallback tetap bisa dimainkan');
+ await elements.get('play-mode').onclick();assert(!doc.body.classList.contains('game-focus'));
+ doc.documentElement.requestFullscreen=async(options)=>{assert.equal(options.navigationUI,'hide');doc.fullscreenElement=doc.documentElement;};
  doc.exitFullscreen=async()=>{doc.fullscreenElement=null;events.fullscreenchange();};
- await elements.get('fullscreen').onclick();assert.equal(lock,1);assert(doc.fullscreenElement);
+ await elements.get('play-mode').onclick();assert.equal(lock,1);assert(doc.fullscreenElement);
  await elements.get('play-mode').onclick();assert(!doc.body.classList.contains('game-focus'));assert.equal(unlock,1);
  keys.add('right');events.resize();assert.equal(keys.size,0);
  console.log('PASS: rasio klik Canvas, pita kosong, teks besar, fokus game, fullscreen/fallback, rotasi');

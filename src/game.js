@@ -139,7 +139,9 @@
   document.querySelectorAll('[data-move]').forEach(b=>{b.onpointerdown=e=>{e.preventDefault();keys.add(b.dataset.move);route=[];routeTarget=null;b.setPointerCapture(e.pointerId);};b.onpointerup=b.onpointercancel=b.onlostpointercapture=()=>keys.delete(b.dataset.move);});
   $('touch-action').onclick=()=>{if(dialogOpen){if(typing)stopTyping();else currentNext?.();}else interact();};
   $('start').onclick=()=>{if(!ready){toast('Menyiapkan peta…');return;}$('intro').classList.add('hidden');canvas.focus({preventScroll:true});if(!state.started)conversation([{who:'bio',exp:'neutral',text:'Aku Bio. Pagi ini aku datang ke Arunika untuk sebuah misteri. Mesha menungguku di jalan menuju jembatan. Saatnya mencari tahu!'}]);};
-  $('sound').onclick=async()=>{try{const on=await A.toggle();$('sound').querySelector('span').textContent=on?'Suara aktif':'Suara mati';$('sound').setAttribute('aria-label',on?'Matikan suara':'Aktifkan suara');}catch{toast('Audio belum tersedia di browser ini');}};
+  let soundBusy=false;
+  function updateSoundButton(){const on=A.enabled;$('sound').querySelector('span').textContent=on?'Suara aktif':'Suara mati';$('sound').setAttribute('aria-label',on?'Matikan suara':'Aktifkan suara');$('sound').setAttribute('aria-pressed',String(on));}
+  $('sound').onclick=async()=>{if(soundBusy)return;soundBusy=true;$('sound').disabled=true;try{const on=await A.toggle();if(on)A.click();}catch{toast('Audio belum bisa diaktifkan. Coba ketuk tombol suara lagi.');}finally{updateSoundButton();soundBusy=false;$('sound').disabled=false;}};
   BioLessons.init({openModal,closeModal,portraitHTML,audio:A});
   $('learning').onclick=()=>BioLessons.open();
   $('help').onclick=help;$('journal').onclick=openJournal;$('modal-close').onclick=closeModal;$('modal').onclick=e=>{if(e.target===$('modal'))closeModal();};

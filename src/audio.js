@@ -10,11 +10,13 @@ window.AudioBio = (() => {
     osc.connect(amp); amp.connect(bus); osc.start(t); osc.stop(t + duration + .02);
   }
   async function toggle(force) {
-    enabled = typeof force === 'boolean' ? force : !enabled;
-    if (enabled) {
+    const next = typeof force === 'boolean' ? force : !enabled;
+    if (next) {
+      if(ctx?.state==='closed'){ctx=null;bus=null;}
       ctx ||= new (window.AudioContext || window.webkitAudioContext)();
       if (!bus) { bus = ctx.createGain(); bus.gain.value = .28; bus.connect(ctx.destination); }
-      await ctx.resume();
+      try{await ctx.resume();}catch(error){enabled=false;clearInterval(timer);timer=null;throw error;}
+      enabled=true;
       if (!timer) timer = setInterval(() => {
         const melody = [392,0,493.88,587.33,0,493.88,440,0,329.63,0,392,493.88,440,0,392,0,349.23,0,440,523.25,0,440,392,0,293.66,0,349.23,440,392,0,329.63,0];
         const f = melody[tick % melody.length];
@@ -22,7 +24,7 @@ window.AudioBio = (() => {
         if (tick % 8 === 0) tone([196,164.81,174.61,146.83][Math.floor(tick / 8) % 4], 3.2, 'triangle', .055);
         tick++;
       }, 340);
-    } else { clearInterval(timer); timer = null; if (ctx) await ctx.suspend(); }
+    } else { enabled=false;clearInterval(timer); timer = null; if (ctx) await ctx.suspend(); }
     return enabled;
   }
   return {toggle, get enabled() {return enabled;},
