@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.zip
+preview-*.png
+test-results/
+playwright-report/
+.env
+.env.*
+!.env.example
+Thumbs.db
+.DS_Store
+__pycache__/

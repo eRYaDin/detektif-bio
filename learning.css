@@ -1,0 +1,30 @@
+/* Misi belajar memakai palet dan bentuk yang sama dengan buku lapangan. */
+#learning{margin-bottom:9px;background:#cfdcba;border-color:#96ab7b}
+#learning:hover{background:#bed09f}
+.grade-picker{display:flex;gap:10px;margin:20px 0}
+.grade-picker button{flex:1;padding:13px 20px;background:#dce3cd;color:#355139;border:1px solid #9bad83;border-radius:3px;font-size:16px}
+.grade-picker button[aria-pressed=true]{background:#365b42;color:#fff1c9;border-color:#365b42}
+.learning-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0;color:#667a52;font-size:12px}
+.lesson-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.lesson-card{display:flex;flex-direction:column;align-items:flex-start;gap:9px;text-align:left;border:1px solid #acba96;background:#e0e5cf;border-radius:4px;padding:18px;color:#304e38}
+.lesson-card:hover{background:#cedbbb;border-color:#6b8a52}
+.lesson-icon{width:40px;height:40px;display:grid;place-items:center;background:#bacba2;color:#35573c;font:23px Georgia;border-radius:4px}
+.lesson-card strong{font-size:16px}
+.lesson-card>span:not(.lesson-icon){font-size:12px;line-height:1.6}
+.lesson-card small{font-size:10px;line-height:1.6;margin-top:auto}
+.lesson-question{font-size:21px!important;line-height:1.6;margin:25px 0 20px}
+.lesson-feedback{background:#dce4ca;color:#4b6542;border:1px solid #b2c09e;padding:17px;margin:20px 0;min-height:75px;font-size:14px;line-height:1.7;display:flow-root}
+.lesson-feedback p{font-size:14px;margin:5px 0}
+.lesson-feedback.retry{border-left:4px solid #b39454}
+.lesson-feedback.success{border-left:4px solid #66894c}
+.lesson-visual{padding:25px 15px;background:#dce5c9;display:flex;justify-content:center;align-items:center;gap:20px;min-height:100px}
+.counter-group{display:grid;grid-template-columns:repeat(3,18px);gap:7px}
+.counter-group i{width:18px;height:18px;border-radius:50%;background:#bb6844;border:2px solid #884d36;box-shadow:inset 2px 2px #d69a65}
+.triangle-shape{width:0;height:0;border-left:39px solid transparent;border-right:39px solid transparent;border-bottom:64px solid #719454}
+.text-button{background:none;color:#3c6346;padding:8px;font-size:12px;text-decoration:underline;text-underline-offset:3px}
+.secondary{background:#d5dfc5;color:#34503a;border:1px solid #a7b892;padding:11px 16px;margin:10px 7px 0 0;border-radius:3px}
+.parent-notes{border-top:1px solid #bcc7aa;margin-top:20px;padding-top:18px}
+.parent-notes summary{cursor:pointer;color:#5f7750;font-size:12px;min-height:32px}
+.parent-notes p{font-size:12px}
+@media(max-width:850px){#learning{grid-column:1/-1}}
+@media(max-width:540px){.lesson-grid{grid-template-columns:1fr}.lesson-card{padding:15px}.lesson-question{font-size:19px!important}.learning-summary{font-size:11px}.grade-picker button{padding:12px}.lesson-feedback{padding:13px}}

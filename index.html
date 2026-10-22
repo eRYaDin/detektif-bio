@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#142c2b"><meta name="description" content="Petualangan Detektif Bio untuk kelas 1–2 SD: misteri laut, matematika, membaca, pola, dan lingkungan. Tanpa akun atau iklan."><title>Detektif Bio — Petualangan & Misi Belajar</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="illustrated-characters.css"><link rel="stylesheet" href="learning.css"></head>
+<body>
+<div class="app">
+  <header class="masthead"><a class="brand" href="./index.html" aria-label="Detektif Bio beranda"><span class="emblem">B<span>✦</span></span><span>DETEKTIF <b>BIO</b><small>SCIENTIFIC ODYSSEY</small></span></a><div class="edition"><span class="live-dot"></span> EKSPEDISI PERTAMA <i>•</i> KELAS 1–2 SD</div><div class="header-actions"><button id="sound" class="icon-button" aria-label="Aktifkan suara" title="Suara">♪ <span>Suara mati</span></button><button id="help" class="icon-button" aria-label="Panduan bermain">?</button></div></header>
+  <main>
+    <div class="chapter-line"><div><span class="eyebrow">BAB 01 / KEPULAUAN ARUNIKA</span><h1>Nyanyian di Teluk Sunyi<span>.</span></h1></div><div class="location"><span>☼</span><div>Teluk Arunika<small>Pagi hari · Cuaca cerah</small></div></div></div>
+    <div class="game-layout">
+      <section class="game-frame" aria-label="Dunia permainan">
+        <div class="map-header"><span><i class="live-dot"></i> CAGAR LAUT ARUNIKA</span><span id="map-status">JELAJAHI & TEMUKAN</span></div>
+        <div class="viewport" id="viewport"><canvas id="world" width="960" height="576" aria-label="Peta pulau. Gunakan WASD atau panah untuk berjalan, E untuk berinteraksi." tabindex="0"></canvas>
+          <div class="area-label" id="area-label"><span>ANDA BERADA DI</span><b>Stasiun Penelitian</b></div><div class="compass" aria-hidden="true">N<br>✧</div>
+          <div class="interaction hidden" id="interaction"><kbd>E</kbd> <span>Bicara dengan Mesha</span></div>
+          <div class="intro" id="intro"><div class="intro-inner"><span class="eyebrow">SEBUAH MISTERI MENUNGGUMU</span><h2>Ke mana perginya<br>nyanyian paus?</h2><p>Teluk ini biasanya penuh nyanyian. Hari ini, hanya suara mesin yang terdengar. Ambil pemindaimu, Detektif.</p><button id="start" class="primary">Mulai ekspedisi <span>→</span></button><small>Eksplorasi · Kumpulkan bukti · Pecahkan misteri</small></div></div>
+          <div class="dialog hidden" id="dialog" role="dialog" aria-label="Percakapan"><span id="portrait" class="atlas-portrait" role="img"></span><div class="dialog-body"><div class="speaker-line"><b id="speaker"></b><span id="speaker-role"></span></div><p id="dialog-text" aria-live="polite"></p><div id="choices" class="choices"></div></div></div>
+          <div id="toast" class="toast hidden" role="status"></div>
+        </div>
+        <div class="game-footer"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> <span class="or">/</span> Panah <small>Berjalan</small></span><span><kbd>E</kbd> <small>Interaksi</small></span><span><kbd>J</kbd> <small>Jurnal</small></span><button id="fullscreen" title="Layar penuh">⛶ <small>Layar penuh</small></button></div>
+        <div class="touch-controls" aria-label="Kontrol sentuh"><div class="dpad"><button data-move="up" aria-label="Atas">▲</button><button data-move="left" aria-label="Kiri">◀</button><button data-move="down" aria-label="Bawah">▼</button><button data-move="right" aria-label="Kanan">▶</button></div><button id="touch-action">E · Interaksi</button></div>
+      </section>
+      <aside class="field-notes"><div class="notes-head"><span class="eyebrow">CATATAN LAPANGAN</span><span>01</span></div><div class="detective"><span class="atlas-portrait sidebar-portrait" role="img" aria-label="Bio dengan topi cokelat dan seragam penjelajah"></span><div><small>PENELITI MUDA</small><h2>Detektif Bio</h2><span><i class="live-dot"></i> Siap menyelidiki</span></div></div>
+        <div class="mission"><span class="eyebrow">MISI AKTIF</span><h3>Teluk yang kehilangan suara</h3><p id="mission-text">Temui Mesha di dekat jembatan. Ia menemukan sesuatu yang aneh.</p><div class="progress"><i id="progress-bar"></i></div><div class="progress-label"><span>Bukti terkumpul</span><b id="evidence-count">0 / 3</b></div></div>
+        <ol class="objectives" id="objectives"><li id="obj-mesha"><span>01</span><div>Temui Detektif Mesha<small>Mulai penyelidikan bersama</small></div><b>○</b></li><li id="obj-water"><span>02</span><div>Periksa kualitas air<small>Pos pengamatan sungai</small></div><b>○</b></li><li id="obj-food"><span>03</span><div>Telusuri rantai makanan<small>Dermaga pengamatan</small></div><b>○</b></li><li id="obj-sound"><span>04</span><div>Dengarkan bawah laut<small>Stasiun hidrofon</small></div><b>○</b></li></ol>
+        <button class="journal-button" id="learning"><span>＋</span><div>Misi belajar Bio<small id="learning-count">Matematika, membaca, pola & alam</small></div><b>↗</b></button>
+        <button class="journal-button" id="journal"><span>▤</span><div>Jurnal peneliti<small id="journal-count">0 kartu ditemukan</small></div><b>↗</b></button><div class="tip"><span>✦</span><p id="tip-text">Detektif hebat tidak asal menebak. Ia mengikuti bukti.</p></div>
+      </aside>
+    </div>
+    <div class="below-game"><span><i class="live-dot"></i> Progres tersimpan otomatis di perangkat ini</span><span>Setiap pertanyaan adalah awal petualangan.<span class="little-star"> ✦</span></span></div>
+  </main><footer class="page-footer"><span>DIRANCANG UNTUK RASA INGIN TAHU.</span><span>Tanpa pertarungan. Tanpa game over. Penuh penemuan.</span></footer>
+</div>
+<div class="modal-backdrop hidden" id="modal"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button id="modal-close" class="close" aria-label="Tutup">×</button><span class="eyebrow" id="modal-eyebrow">JURNAL EKSPEDISI</span><h2 id="modal-title"></h2><div id="modal-content"></div></section></div>
+<script src="src/audio.js"></script><script src="src/art.js"></script><script src="src/content.js"></script><script src="src/learning-data.js"></script><script src="src/learning.js"></script><script src="src/game.js"></script>
+</body></html>
